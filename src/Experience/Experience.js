@@ -1,3 +1,6 @@
+import Sizes from './Utils/Sizes.js'
+import Time from './Utils/Time.js'
+
 let instance = null
 
 export default class Experience {
@@ -7,5 +10,7 @@ export default class Experience {
         window.experience = this
 
         this.canvas = canvas
+        this.sizes = new Sizes()
+        this.time = new Time()
     }
 }
