@@ -1,0 +1,11 @@
+html, body{
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas.webgpu{
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
