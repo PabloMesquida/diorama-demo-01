@@ -31,6 +31,8 @@ export default class Experience {
 
         this.camera = new Camera()
         this.renderer = new Renderer()
+        
+        this.sizes.addEventListener('resize', () => this.resize())
 
         await this.renderer.init()
 
@@ -43,9 +45,8 @@ export default class Experience {
 
         await this.renderer.compile()
 
-        this.sizes.addEventListener('resize', () => this.resize())
+        
         this.time.addEventListener('tick', () => this.update())
-
         this.renderer.instance.setAnimationLoop((t) => this.time.tick(t))
     }
 
