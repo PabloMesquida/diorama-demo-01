@@ -1,3 +1,4 @@
+import { createProceduralHuman, rigifyMapping } from 'three-procedural-locomotion'
 import { SkeletonHelper } from 'three/webgpu'
 
 import Experience from '../Experience.js'
