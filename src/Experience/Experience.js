@@ -35,10 +35,13 @@ export default class Experience {
         await this.renderer.init()
 
         this.debug = new Debug()
+
         this.resources = new Resources()
         await this.resources.load(sources)
 
         this.world = new World()
+
+        await this.renderer.compile()
 
         this.sizes.addEventListener('resize', () => this.resize())
         this.time.addEventListener('tick', () => this.update())

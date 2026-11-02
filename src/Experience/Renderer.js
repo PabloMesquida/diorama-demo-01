@@ -18,6 +18,10 @@ export default class Renderer {
         }
     }
 
+    async compile(){
+        await this.instance.compileAsync(this.experience.scene, this.experience.camera.instance)
+    }
+
     setInstance(){
         this.instance = new WebGPURenderer({ canvas: this.canvas, antialias: true})
         this.instance.setPixelRatio(this.sizes.pixelRatio)
