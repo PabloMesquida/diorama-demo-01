@@ -27,11 +27,11 @@ export default class Experience {
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new Scene()
-        this.scene.background = new Color('#203040')
+        this.scene.background = new Color('#28728f')
 
         this.camera = new Camera()
         this.renderer = new Renderer()
-        
+
         this.sizes.addEventListener('resize', () => this.resize())
 
         await this.renderer.init()
