@@ -1,14 +1,9 @@
 import { TextureLoader } from 'three/webgpu'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-import sources from './../sources.js'
-
-export default class Resources extends EventTarget {
+export default class Resources {
     constructor(){
-        super()
-
         this.setLoaders()
-        this.startLoading()
     }
 
     setLoaders(){
@@ -18,36 +13,20 @@ export default class Resources extends EventTarget {
         }
     }
 
-    startLoading(){
-        this.toLoad = sources.length
-        this.loaded = 0
-        this.items = {}
+    async load(sources){
+        const entries = await Promise.all(
+            sources.map(async (source) => {
+                const loader = this.loaders[source.type]
+                if(!loader) throw new Error(`Unknown resource type: ${source.type}`)
+                
+                const file = await loader.loadAsync(source.path).catch((error) => {
+                    throw new Error(`Failed to load "${source.name}" (${source.path})`, { cause: error })
+                })
 
-        if(this.toLoad === 0){
-            queueMicrotask(() => {
-                this.dispatchEvent(new Event('ready'))
+                return [source.name, file]
             })
+        )
 
-            return
-        }
-
-        for(const source of sources){
-            const loader = this.loaders[source.type]
-
-            if(!loader){
-                throw new Error(`Unkown resource type: ${source.type}`)
-            }
-
-            loader.load(
-                source.path,
-                (file) => this.sourceLoaded(source, file),
-                undefined,
-                (error) => this.sourceFailed(source, error)
-            )
-        }
+        this.items = Object.fromEntries(entries)
     }
-
-    sourceLoaded(){}
-
-    sourceFailed(){}
 }

@@ -8,6 +8,7 @@ import Resources from './Utils/Resources.js'
 import Debug from './Utils/Debug.js'
 import World from './World/World.js'
 
+import sources from './sources.js'
 
 let instance = null
 
@@ -35,6 +36,8 @@ export default class Experience {
 
         this.debug = new Debug()
         this.resources = new Resources()
+        await this.resources.load(sources)
+
         this.world = new World()
 
         this.sizes.addEventListener('resize', () => this.resize())

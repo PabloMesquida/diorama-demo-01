@@ -10,10 +10,8 @@ export default class World {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
-        this.resources.addEventListener('ready', () => {
-            this.environment = new Environment()
-            this.setTestCube()
-        })
+        this.environment = new Environment()
+        this.setTestCube()
     }
 
     setTestCube(){
