@@ -10,6 +10,14 @@ export default class Renderer {
         this.setInstance()
     }
 
+    async init(){
+        await this.instance.init()
+
+        if(!this.instance.backend.isWebGPUBackend){
+            throw new Error('WebGPUBackend is not available in this browser')
+        }
+    }
+
     setInstance(){
         this.instance = new WebGPURenderer({ canvas: this.canvas, antialias: true})
         this.instance.setPixelRatio(this.sizes.pixelRatio)

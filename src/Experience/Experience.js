@@ -18,20 +18,29 @@ export default class Experience {
         window.experience = this
 
         this.canvas = canvas
+
+        this.init().catch((error) => console.error(error))
+    }
+
+    async init(){
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new Scene()
         this.scene.background = new Color('#203040')
-        this.resources = new Resources()
+
         this.camera = new Camera()
         this.renderer = new Renderer()
+
+        await this.renderer.init()
+
         this.debug = new Debug()
+        this.resources = new Resources()
         this.world = new World()
-        
-        this.renderer.instance.setAnimationLoop((t) => this.time.tick(t))
 
         this.sizes.addEventListener('resize', () => this.resize())
         this.time.addEventListener('tick', () => this.update())
+
+        this.renderer.instance.setAnimationLoop((t) => this.time.tick(t))
     }
 
     resize(){
