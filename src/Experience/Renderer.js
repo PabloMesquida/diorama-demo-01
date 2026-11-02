@@ -1,14 +1,13 @@
 import { WebGPURenderer } from 'three/webgpu'
 import Experience from './Experience.js'
 
-export default class Renderer{
+export default class Renderer {
     constructor(){
         this.experience = new Experience()
         this.canvas = this.experience.canvas
         this.sizes = this.experience.sizes
 
         this.setInstance()
-        this.setAnimationLoop()
     }
 
     setInstance(){
@@ -24,9 +23,5 @@ export default class Renderer{
 
     update(){
         this.instance.render(this.experience.scene, this.experience.camera.instance)
-    }
-
-    setAnimationLoop(){
-        this.instance.setAnimationLoop((timestamp) => this.experience.time.tick(timestamp))
     }
 }

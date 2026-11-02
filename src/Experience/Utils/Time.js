@@ -1,6 +1,6 @@
 import { Timer } from 'three/webgpu'
 
-export default class Time extends EventTarget{
+export default class Time extends EventTarget {
     constructor(){
         super()
 

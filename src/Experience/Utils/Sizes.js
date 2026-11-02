@@ -1,4 +1,4 @@
-export default class Sizes extends EventTarget{
+export default class Sizes extends EventTarget {
     constructor(){
         super()
 
