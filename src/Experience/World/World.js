@@ -3,6 +3,7 @@ import { BoxGeometry, Mesh, MeshNormalMaterial } from 'three/webgpu'
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
 import Terrain from './Terrain.js'
+import Character from './Character.js'
 
 export default class World {
     constructor(){
@@ -13,6 +14,7 @@ export default class World {
 
         this.environment = new Environment()
         this.terrain = new Terrain()
+        this.character = new Character()
 
         this.setTestCube()
     }
