@@ -1,4 +1,5 @@
 import { BoxGeometry, Mesh, MeshNormalMaterial } from 'three/webgpu'
+import { StaticGroundDetector } from 'three-procedural-locomotion'
 
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
@@ -14,7 +15,8 @@ export default class World {
 
         this.environment = new Environment()
         this.terrain = new Terrain()
-        this.character = new Character()
+        this.ground = new StaticGroundDetector([this.terrain.lower, this.terrain.upper])
+        this.character = new Character(this.ground)
 
         this.setTestCube()
     }
@@ -27,5 +29,9 @@ export default class World {
         this.testCube.position.set(2, 0.5, 1)
 
         this.scene.add(this.testCube)
+    }
+
+    update(){
+        this.character.update()
     }
 } 

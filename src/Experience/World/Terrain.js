@@ -10,16 +10,22 @@ export default class Terrain {
         this.scene = this.experience.scene
 
         this.terrainMaterial = new GridMaterial({
-            backgroundColor: "#297491",  
-            crossColor: "#9da7ab",
-            primaryColor: "#8a8f28",
-            secondaryColor: "#8e9da3",
             projection: 'box',
-            fade: true,
-            primarySpacing: 10,
-            secondarySpacing: 2,
+            backgroundColor: '#297491',
+            primaryColor: '#8a8f28',
+            primarySpacing: 5,
+            primaryThickness: 0.05,
+            secondaryColor: '#8e9da3',
+            secondarySpacing: 1,
+            secondaryThickness: 0.015,
+            crossColor: '#9da7ab',
             crossSpacing: 1,
-            crossSize: 0.15
+            crossSize: 0.1,
+            crossThickness: 0.015,
+            fade: true,
+            fadeRadius: 60,
+            fadeSoftness: 0.7,
+            fadeCenter: [0, 0],
         })
 
         this.setDebug()
