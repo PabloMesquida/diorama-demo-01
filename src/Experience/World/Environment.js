@@ -12,13 +12,13 @@ export default class Environment {
     }
 
     setAmbientLight(){
-        this.ambientLight = new AmbientLight(0xffffff, 0.5)
+        this.ambientLight = new AmbientLight(0xe4e6eb, 1)
         
         this.scene.add(this.ambientLight)
     }
 
     setDirectionalLight(){
-        this.directionalLight = new DirectionalLight(0xffffff, 1.5)
+        this.directionalLight = new DirectionalLight(0xe8e5d8, 1.5)
         this.directionalLight.position.set(4, 6, 3)
 
         this.scene.add(this.directionalLight)

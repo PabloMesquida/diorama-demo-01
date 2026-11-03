@@ -11,22 +11,23 @@ export default class Terrain {
 
         this.terrainMaterial = new GridMaterial({
             projection: 'box',
-            backgroundColor: '#297491',
-            primaryColor: '#8a8f28',
+            backgroundColor: '#434c55',
+            primaryColor: '#4e5861',
             primarySpacing: 5,
-            primaryThickness: 0.05,
-            secondaryColor: '#8e9da3',
+            primaryThickness: 0.04,
+            secondaryColor: '#4e5861',
             secondarySpacing: 1,
             secondaryThickness: 0.015,
-            crossColor: '#9da7ab',
-            crossSpacing: 1,
-            crossSize: 0.1,
-            crossThickness: 0.015,
+            crossColor: '#4e5861',
+            crossSpacing: 2,
+            crossSize: 0.22,
+            crossThickness: 0.04,
             fade: true,
-            fadeRadius: 60,
+            fadeRadius: 40,
             fadeSoftness: 0.7,
-            fadeCenter: [0, 0],
-        })
+            fadeCenter: [0, -5],
+            })
+        
 
         this.setDebug()
 

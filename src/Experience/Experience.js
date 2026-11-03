@@ -27,7 +27,7 @@ export default class Experience {
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new Scene()
-        this.scene.background = new Color('#28728f')
+        this.scene.background = new Color('#232930')
 
         this.camera = new Camera()
         this.renderer = new Renderer()
