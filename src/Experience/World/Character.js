@@ -11,7 +11,7 @@ export default class Character {
         this.time = this.experience.time
         this.resource = this.experience.resources.items.characterModel
         this.model = this.resource.scene
-        this.model.position.set(0, 0, 3)
+        this.model.position.set(0, 0, 5)
         this.ground = ground
 
         this.scene.add(this.model)
@@ -31,7 +31,7 @@ export default class Character {
 
         this.setClickToMove()
 
-        // this.setDebug()
+        this.setDebug()
     }
 
     setClickToMove(){
