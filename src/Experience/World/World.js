@@ -5,6 +5,7 @@ import Experience from '../Experience.js'
 import Environment from './Environment.js'
 import Terrain from './Terrain.js'
 import Character from './Character.js'
+import Rocks from './Rocks.js'
 
 export default class World {
     constructor(){
@@ -15,20 +16,9 @@ export default class World {
 
         this.environment = new Environment()
         this.terrain = new Terrain()
-        this.ground = new StaticGroundDetector([this.terrain.lower, this.terrain.upper])
+        this.rocks = new Rocks()
+        this.ground = new StaticGroundDetector([this.terrain.lower, this.terrain.upper, this.rocks.model])
         this.character = new Character(this.ground)
-
-        this.setTestCube()
-    }
-
-    setTestCube(){
-        const geometry = new BoxGeometry(1, 1, 1)
-        const material = new MeshNormalMaterial()
-
-        this.testCube = new Mesh(geometry, material)
-        this.testCube.position.set(2, 0.5, 1)
-
-        this.scene.add(this.testCube)
     }
 
     update(){
