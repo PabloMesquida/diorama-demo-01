@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, ShadowNodeMaterial} from 'three/webgpu'
+import { BoxGeometry, Mesh} from 'three/webgpu'
 import { GridMaterial } from 'grid-tsl'
 import { createGridDebug } from 'grid-tsl/debug' 
 
