@@ -42,5 +42,6 @@ export default class Dirt {
         this.mesh = new Mesh(geometry, this.material)
         this.mesh.name = 'Dirt'
         this.scene.add(this.mesh)
+        this.mesh.receiveShadow = true
     }
 }

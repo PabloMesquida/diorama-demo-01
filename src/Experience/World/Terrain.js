@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh} from 'three/webgpu'
+import { BoxGeometry, Mesh, ShadowNodeMaterial} from 'three/webgpu'
 import { GridMaterial } from 'grid-tsl'
 import { createGridDebug } from 'grid-tsl/debug' 
 
@@ -26,13 +26,14 @@ export default class Terrain {
             fadeRadius: 40,
             fadeSoftness: 0.7,
             fadeCenter: [0, -5],
-            })
+        })
         
 
         this.setDebug()
 
         this.setLower()
         this.setUpper()
+        this.setShadowCatchers()
     }
 
     setDebug(){
@@ -54,6 +55,7 @@ export default class Terrain {
         this.lower.name = 'Terrain Lower'
 
         this.scene.add(this.lower)
+        this.lower.castShadow = true
     }
 
     setUpper(){
@@ -66,5 +68,20 @@ export default class Terrain {
         this.upper.name = "Terrain Upper"
 
         this.scene.add(this.upper)
+        this.upper.castShadow = true
+    }
+
+    setShadowCatchers(){
+        this.shadowMaterial = new ShadowNodeMaterial({ opacity: 0.4})
+        this.shadowMaterial.polygonOffset = true
+        this.shadowMaterial.polygonOffsetFactor = -1
+        this.shadowMaterial.polygonOffsetUnits = -1
+
+        for(const terrainMesh of [this.lower, this.upper]){
+            const catcher = new Mesh(terrainMesh.geometry, this.shadowMaterial)
+            catcher.receiveShadow = true
+            catcher.renderOrder = 1
+            this.scene.add(catcher)
+        }
     }
 }

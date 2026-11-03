@@ -10,5 +10,12 @@ export default class Rocks {
         this.model.position.set(0, -0.5, -5.75)
 
         this.scene.add(this.model)
+
+        this.model.traverse((child) => {
+            if(child.isMesh){
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
     }
 }

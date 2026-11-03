@@ -16,6 +16,13 @@ export default class Character {
 
         this.scene.add(this.model)
 
+        this.model.traverse((child) => {
+            if(child.isMesh){
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+
         this.human = createProceduralHuman({
             model: this.model,
             mapping: rigifyMapping,
@@ -24,7 +31,7 @@ export default class Character {
 
         this.setClickToMove()
 
-        this.setDebug()
+        // this.setDebug()
     }
 
     setClickToMove(){
