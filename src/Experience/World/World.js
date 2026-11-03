@@ -1,4 +1,3 @@
-import { BoxGeometry, Mesh, MeshNormalMaterial } from 'three/webgpu'
 import { StaticGroundDetector } from 'three-procedural-locomotion'
 
 import Experience from '../Experience.js'
@@ -6,6 +5,7 @@ import Environment from './Environment.js'
 import Terrain from './Terrain.js'
 import Character from './Character.js'
 import Rocks from './Rocks.js'
+import Dirt from './Dirt.js'
 
 export default class World {
     constructor(){
@@ -17,6 +17,7 @@ export default class World {
         this.environment = new Environment()
         this.terrain = new Terrain()
         this.rocks = new Rocks()
+        this.dirt = new Dirt()
         this.ground = new StaticGroundDetector([this.terrain.lower, this.terrain.upper, this.rocks.model])
         this.character = new Character(this.ground)
     }
