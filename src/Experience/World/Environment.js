@@ -1,4 +1,4 @@
-import { AmbientLight, DirectionalLight } from 'three/webgpu'
+import { HemisphereLight , DirectionalLight } from 'three/webgpu'
 
 import Experience from '../Experience.js'
 
@@ -7,13 +7,13 @@ export default class Environment {
         this.experience = new Experience()
         this.scene = this.experience.scene
 
-        this.setAmbientLight()
+        this.setHemisphereLight()
         this.setDirectionalLight()
     }
 
-    setAmbientLight(){
-        this.ambientLight = new AmbientLight(0xe4e6eb, 1)
-        this.scene.add(this.ambientLight)
+    setHemisphereLight(){
+        this.hemisphereLight = new HemisphereLight('#e4e6eb', '#3a3f46', 1.2)
+        this.scene.add(this.hemisphereLight)
     }
 
     setDirectionalLight(){
