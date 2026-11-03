@@ -22,18 +22,20 @@ export default class Terrain {
             crossSpacing: 2,
             crossSize: 0.22,
             crossThickness: 0.02,
+            faceShading: 0.15,
+            receiveShadows: true,
+            shadowColor: '#000000',
+            shadowIntensity: 0.25,
             fade: true,
             fadeRadius: 40,
             fadeSoftness: 0.7,
             fadeCenter: [0, -5],
         })
         
-
         this.setDebug()
 
         this.setLower()
         this.setUpper()
-        this.setShadowCatchers()
     }
 
     setDebug(){
@@ -56,6 +58,7 @@ export default class Terrain {
 
         this.scene.add(this.lower)
         this.lower.castShadow = true
+        this.lower.receiveShadow = true
     }
 
     setUpper(){
@@ -69,19 +72,6 @@ export default class Terrain {
 
         this.scene.add(this.upper)
         this.upper.castShadow = true
-    }
-
-    setShadowCatchers(){
-        this.shadowMaterial = new ShadowNodeMaterial({ opacity: 0.4})
-        this.shadowMaterial.polygonOffset = true
-        this.shadowMaterial.polygonOffsetFactor = -1
-        this.shadowMaterial.polygonOffsetUnits = -1
-
-        for(const terrainMesh of [this.lower, this.upper]){
-            const catcher = new Mesh(terrainMesh.geometry, this.shadowMaterial)
-            catcher.receiveShadow = true
-            catcher.renderOrder = 1
-            this.scene.add(catcher)
-        }
+        this.upper.receiveShadow = true
     }
 }
