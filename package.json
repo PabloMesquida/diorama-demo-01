@@ -12,9 +12,9 @@
     "vite": "^8.3.5"
   },
   "dependencies": {
-    "grid-tsl": "github:PabloMesquida/grid-tsl#v2.3.0",
+    "grid-tsl": "github:PabloMesquida/grid-tsl#v2.4.0",
     "three": "^0.187.0",
     "three-procedural-locomotion": "github:PabloMesquida/three-procedural-locomotion#v0.1.0",
-    "tree-demo": "github:PabloMesquida/tree-demo#v0.3.0"
+    "tree-demo": "github:PabloMesquida/tree-demo#v0.4.0"
   }
 }
