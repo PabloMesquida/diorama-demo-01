@@ -16,7 +16,7 @@ export default class Camera{
 
     setInstance(){
         this.instance = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.instance.position.set(16, 9, 14)
+        this.instance.position.set(-16, 9, 14)
     }
 
     setOrbitControls(){
@@ -24,6 +24,7 @@ export default class Camera{
 
         this.controls.enableDamping = true
         this.controls.maxPolarAngle = Math.PI * 0.49
+        this.controls.target.set(0, 2, 0)
         this.controls.update()
     }
 
