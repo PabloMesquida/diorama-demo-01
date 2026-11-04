@@ -23,7 +23,7 @@ export default class Renderer {
     }
 
     setInstance(){
-        this.instance = new WebGPURenderer({ canvas: this.canvas, antialias: true})
+        this.instance = new WebGPURenderer({ canvas: this.canvas, antialias: true,  alpha: false})
         this.instance.setPixelRatio(this.sizes.pixelRatio)
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.shadowMap.enabled = true
