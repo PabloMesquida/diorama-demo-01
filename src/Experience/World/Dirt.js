@@ -1,4 +1,4 @@
-import { Mesh, MeshStandardMaterial, PlaneGeometry, SRGBColorSpace } from 'three/webgpu'
+import { Mesh, MeshStandardMaterial, PlaneGeometry, SRGBColorSpace, Vector2  } from 'three/webgpu'
 
 import Experience from '../Experience.js'
 
@@ -31,11 +31,12 @@ export default class Dirt {
     setMesh(){
         const geometry = new PlaneGeometry(6, 6)
         geometry.rotateX(- Math.PI * 0.5)
-        geometry.translate(0, 1.005, -5)
+        geometry.translate(0, 1.01, -5)
 
         this.material = new MeshStandardMaterial({
             map: this.textures.color,
             normalMap: this.textures.normal,
+            normalScale: new Vector2(5, 5),
             transparent: true
         })
 

@@ -20,9 +20,9 @@ export default class Tree {
         this.leafTree = await LeafTree.create(this.experience.renderer.instance, { 
             object: this.model, 
             textures: this.textures,
-            count: 9000,                  // hojas visibles
-            capacity: 9000,              // máximo de hojas que se reserva en la GPU
-            params: { leafSize: 0.1 }
+            count: 9000,                
+            capacity: 9000,             
+            params: { leafSize: 0.1, spontaneousFall: 0.02, regeneration: false }
         })
         this.scene.add(this.leafTree.object)
     }

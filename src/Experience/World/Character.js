@@ -12,6 +12,7 @@ export default class Character {
         this.resource = this.experience.resources.items.characterModel
         this.model = this.resource.scene
         this.model.position.set(0, 0, 5)
+        this.model.rotation.set(0, Math.PI, 0)
         this.ground = ground
 
         this.scene.add(this.model)
