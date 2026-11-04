@@ -4,7 +4,7 @@ import { Raycaster, SkeletonHelper, Vector2 } from 'three/webgpu'
 import Experience from '../Experience.js'
 
 export default class Character {
-    constructor(ground){
+    constructor(ground, trunk){
         this.experience = new Experience()
 
         this.scene = this.experience.scene
@@ -26,7 +26,20 @@ export default class Character {
         this.human = createProceduralHuman({
             model: this.model,
             mapping: rigifyMapping,
-            ground
+            ground,
+            touchables: [trunk],
+            config: {
+                idleArmAbduction: 19,
+                runArmAbduction: 18,
+                armAbduction: 15,
+                variation: 2,
+                idleStepThreshold: 0.2,
+                shoulderDrop: 10,
+                touchReachTime: 0.5,
+                touchReleaseTime: 0.5,
+                touchHoldTime: 5,
+                touchMaxReach: 1,
+            },
         })
 
         this.setClickToMove()
