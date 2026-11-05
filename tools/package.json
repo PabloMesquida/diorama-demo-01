@@ -1,0 +1,15 @@
+{
+  "name": "diorama-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bake:rocks": "node bake-rocks-distance.mjs"
+  },
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "meshoptimizer": "1.3.0",
+    "three": "0.187.0",
+    "three-mesh-bvh": "0.9.18"
+  }
+}
