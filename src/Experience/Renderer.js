@@ -20,6 +20,8 @@ export default class Renderer {
         if(!this.instance.backend.isWebGPUBackend){
             throw new Error('WebGPUBackend is not available in this browser')
         }
+
+        await this.setRecorder()
     }
 
     async compile(){
@@ -50,13 +52,22 @@ export default class Renderer {
         this.pipeline.outputNode = color.add(this.bloomPass)
     }
 
+    async setRecorder(){
+        if(!import.meta.env.DEV) return
+
+        const { CanvasRecorder, RecordButton } = await import('canvas-recorder')
+
+        this.recorder = new CanvasRecorder(this.instance)
+        new RecordButton(this.recorder, { filename: 'diorama' })
+    }
+
     resize(){
         this.instance.setPixelRatio(this.sizes.pixelRatio)
         this.instance.setSize(this.sizes.width, this.sizes.height)
     }
 
     update(){
-        //this.instance.render(this.experience.scene, this.experience.camera.instance)
         this.pipeline.render()
+        this.recorder?.capture()
     }
 }

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "canvas-recorder": "github:PabloMesquida/canvas-recorder",
     "vite": "^8.3.5"
   },
   "dependencies": {
