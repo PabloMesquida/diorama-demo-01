@@ -1,5 +1,5 @@
 import { SRGBColorSpace, MeshBasicMaterial, Mesh, CylinderGeometry } from 'three/webgpu'
-import { LeafTree } from 'tree-demo'
+import { LeafTree } from 'three-living-trees'
 import Experience from '../Experience.js'
 
 export default class Tree {
@@ -9,7 +9,7 @@ export default class Tree {
         this.time = this.experience.time
         this.model = this.experience.resources.items.treeModel.scene
         this.model.position.set(0, 1, -5)
-        this.model.scale.set(1.2,1.2,1.2)
+        this.model.scale.set(1.25,1.25,1.25)
 
         this.setTextures()
         this.setTree()
@@ -20,9 +20,9 @@ export default class Tree {
         this.leafTree = await LeafTree.create(this.experience.renderer.instance, { 
             object: this.model, 
             textures: this.textures,
-            count: 9000,                
-            capacity: 9000,             
-            params: { leafSize: 0.1, spontaneousFall: 0.02, regeneration: false }
+            count: 15000,                
+            capacity: 15000,             
+            params: { leafSize: 0.08, spontaneousFall: 0.02, regeneration: false, leafCurve: 0.2 }
         })
         this.scene.add(this.leafTree.object)
     }
