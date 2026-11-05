@@ -60,7 +60,7 @@ export default class Terrain {
 
         this.rockShading = {
             strength: uniform(0.7),
-            reach: uniform(1.2)
+            reach: uniform(0.6)
         }
 
         const uvw = positionWorld.sub(vec3(-7.883, -0.2, -3.125)).div(vec3(14.4, 1.4, 11.5))

@@ -24,7 +24,7 @@ export default class Camera{
 
         this.controls.enableDamping = true
         this.controls.maxPolarAngle = Math.PI * 0.49
-        this.controls.target.set(0, 2, 0)
+        this.controls.target.set(0, 2, -2)
         this.controls.update()
     }
 
