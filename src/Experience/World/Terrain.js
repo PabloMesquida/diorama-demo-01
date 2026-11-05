@@ -59,7 +59,7 @@ export default class Terrain {
         texture.needsUpdate = true
 
         this.rockShading = {
-            strength: uniform(0.7),
+            strength: uniform(0.5),
             reach: uniform(0.6)
         }
 
