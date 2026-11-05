@@ -1,4 +1,5 @@
-import { BoxGeometry, Mesh} from 'three/webgpu'
+import { BoxGeometry, Data3DTexture, LinearFilter, Mesh, RedFormat} from 'three/webgpu'
+import { positionWorld, texture3D, uniform, vec3 } from 'three/tsl' 
 import { GridMaterial } from 'grid-tsl'
 import { createGridDebug } from 'grid-tsl/debug' 
 
@@ -39,11 +40,34 @@ export default class Terrain {
             fadeSoftness: 0.7,
             fadeCenter: [0, -5],
         })
+
+        this.setRockShading()
         
         this.setDebug()
 
         this.setLower()
         this.setUpper()
+    }
+
+    setRockShading(){
+        const data = new Uint8Array(this.experience.resources.items.rocksDistance)
+
+        const texture = new Data3DTexture(data, 144, 14, 115)
+        texture.format = RedFormat
+        texture.minFilter = LinearFilter
+        texture.magFilter = LinearFilter
+        texture.needsUpdate = true
+
+        this.rockShading = {
+            strength: uniform(0.7),
+            reach: uniform(1.2)
+        }
+
+        const uvw = positionWorld.sub(vec3(-7.883, -0.2, -3.125)).div(vec3(14.4, 1.4, 11.5))
+        const distance = texture3D(texture, uvw).r.mul(1.4)
+        const shade = distance.div(this.rockShading.reach).saturate().oneMinus().pow(1.6).mul(this.rockShading.strength).oneMinus()
+
+        this.terrainMaterial.colorNode = this.terrainMaterial.colorNode.mul(shade)
     }
 
     setDebug(){

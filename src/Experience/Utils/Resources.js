@@ -1,4 +1,4 @@
-import { TextureLoader } from 'three/webgpu'
+import { FileLoader, TextureLoader } from 'three/webgpu'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 
@@ -10,7 +10,8 @@ export default class Resources {
     setLoaders(){
         this.loaders = {
             gltf: new GLTFLoader(),
-            texture: new TextureLoader()
+            texture: new TextureLoader(),
+            binary: new FileLoader().setResponseType('arraybuffer')
         }
         this.loaders.gltf.setMeshoptDecoder(MeshoptDecoder)
     }

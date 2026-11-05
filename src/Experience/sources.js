@@ -8,5 +8,6 @@ export default [
     { name: 'leafTexture02', type: 'texture', path: '/textures/leaf/hoja02.webp' },
     { name: 'leafTexture03', type: 'texture', path: '/textures/leaf/hoja03.webp' },
     { name: 'leafTexture04', type: 'texture', path: '/textures/leaf/hoja04.webp' },
-    { name: 'leafTexture05', type: 'texture', path: '/textures/leaf/hoja05.webp' }
+    { name: 'leafTexture05', type: 'texture', path: '/textures/leaf/hoja05.webp' },
+    { name: 'rocksDistance', type: 'binary', path: '/textures/rocks/rocks_distance.bin' }
 ]
