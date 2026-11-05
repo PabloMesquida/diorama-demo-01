@@ -1,4 +1,5 @@
-import { HemisphereLight , DirectionalLight } from 'three/webgpu'
+import { HemisphereLight , DirectionalLight, PMREMGenerator  } from 'three/webgpu'
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 
 import Experience from '../Experience.js'
 
@@ -9,6 +10,7 @@ export default class Environment {
 
         this.setHemisphereLight()
         this.setDirectionalLight()
+        this.setEnvironmentMap()
     }
 
     setHemisphereLight(){
@@ -33,5 +35,11 @@ export default class Environment {
         this.directionalLight.shadow.normalBias = 0.02
 
         this.scene.add(this.directionalLight)
+    }
+
+    setEnvironmentMap(){
+        const pmrem = new PMREMGenerator(this.experience.renderer.instance)
+        this.environmentMap = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+
     }
 }

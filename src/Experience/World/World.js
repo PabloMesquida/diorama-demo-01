@@ -21,7 +21,7 @@ export default class World {
         this.dirt = new Dirt()
         this.tree = new Tree()
         this.ground = new StaticGroundDetector([this.terrain.lower, this.terrain.upper, this.rocks.model])
-        this.character = new Character(this.ground, this.tree.trunk)
+        this.character = new Character(this.ground, this.tree.trunk, this.environment.environmentMap)
     }
 
     update(){

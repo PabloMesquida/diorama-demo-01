@@ -4,7 +4,7 @@ import { Raycaster, SkeletonHelper, Vector2 } from 'three/webgpu'
 import Experience from '../Experience.js'
 
 export default class Character {
-    constructor(ground, trunk){
+    constructor(ground, trunk, environmentMap){
         this.experience = new Experience()
 
         this.scene = this.experience.scene
@@ -21,6 +21,8 @@ export default class Character {
             if(child.isMesh){
                 child.castShadow = true
                 child.receiveShadow = true
+                child.material.envMap = environmentMap
+                child.material.envMapIntensity = 0.6
             }
         })
 
