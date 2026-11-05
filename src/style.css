@@ -9,3 +9,12 @@ canvas.webgpu{
   left: 0;
   outline: none;
 }
+
+.route-button{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: '#000000';
+}

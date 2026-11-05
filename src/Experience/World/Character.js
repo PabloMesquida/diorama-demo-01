@@ -1,7 +1,19 @@
 import { createProceduralHuman, rigifyMapping } from 'three-procedural-locomotion'
-import { Raycaster, SkeletonHelper, Vector2 } from 'three/webgpu'
+import { Raycaster, SkeletonHelper, Vector2, Vector3, Quaternion } from 'three/webgpu'
 
 import Experience from '../Experience.js'
+
+const ROUTE_START = new Vector3(2.5, 0, 7.6)
+const ROUTE = [
+    new Vector3(2.5, 1, -0.6),   // arriba de las rocas
+    new Vector3(-0.5, 1, -3.9),  // acá empieza a rodear el árbol
+    new Vector3(-0.6, 1, -5),
+    new Vector3(-0.38, 1, -5.47),
+    new Vector3(0.13, 1, -5.6),
+    new Vector3(0.57, 1, -5.19),
+    new Vector3(0.53, 1, -4.62),
+    new Vector3(1.2, 1, -1.2)    // final, cerca del borde
+]
 
 export default class Character {
     constructor(ground, trunk, environmentMap){
@@ -14,6 +26,9 @@ export default class Character {
         this.model.position.set(0, 0, 5)
         this.model.rotation.set(0, Math.PI, 0)
         this.ground = ground
+        this.trunk = trunk
+        this.trunkNormal = new Vector3()
+        this.touchingTrunk = false
 
         this.scene.add(this.model)
 
@@ -46,6 +61,9 @@ export default class Character {
         })
 
         this.setClickToMove()
+
+        this.routeIndex = null
+        this.setRoute()
 
         this.setDebug()
     }
@@ -84,7 +102,81 @@ export default class Character {
         console.log('human warnings:', this.human.warnings)
     }
 
+    setTrunkNormal(){
+        const center = this.trunk.position
+        const position = this.human.position
+        const velocity = this.human.velocity.clone().setY(0)
+
+        // Del tronco hacia el personaje, un poco hacia adelante
+        this.trunkNormal.set(position.x - center.x, 0, position.z - center.z).normalize()
+        if(velocity.lengthSq() > 0.01) this.trunkNormal.addScaledVector(velocity.normalize(), 0.35).normalize()
+    }
+
+    updateTrunkTouch(){
+        const inLoop = this.routeIndex !== null && this.routeIndex >= 3 && this.routeIndex <= 6
+
+        if(!inLoop){
+            if(this.touchingTrunk){
+                this.human.releaseTouch()
+                this.touchingTrunk = false
+            }
+            return
+        }
+
+        this.setTrunkNormal()
+
+        const normal = this.trunkNormal
+        const point = this.trunk.position.clone().addScaledVector(normal, 0.1)
+        point.y = this.trunk.position.y + 1.2
+
+        const phase = this.human.touchPhase('right')
+
+        if(phase === 'none'){
+            this.touchingTrunk = this.human.touch(point, { normal: normal.clone(), side: 'right', slide: false, hold: true })
+            return
+        }
+
+        if(phase === 'release') return
+
+        // Mueve la mano por el tronco (campos internos de la librería)
+        const hand = this.human.locomotion.touch.hands.right
+        hand.rotation.premultiply(new Quaternion().setFromUnitVectors(hand.normal, normal))
+        hand.normal.copy(normal)
+        hand.point.copy(point)
+
+        const finger = hand.fingerLocal.clone().applyQuaternion(hand.rotation)
+        hand.wrist.copy(point).addScaledVector(normal, hand.palmThickness).addScaledVector(finger, -hand.palmLength)
+    }
+
+    setRoute(){
+        document.querySelector('.route-button').addEventListener('click', () => this.startRoute())
+    }
+
+    startRoute(){
+        this.model.position.copy(ROUTE_START)
+        this.model.rotation.set(0, Math.PI, 0)
+        this.human.reset()
+
+        this.routeIndex = 0
+        this.human.moveTo(ROUTE[0])
+    }
+
+    updateRoute(){
+        if(this.routeIndex === null) return
+
+        const position = this.human.position
+        const target = ROUTE[this.routeIndex]
+        if(Math.hypot(position.x - target.x, position.z - target.z) > 0.6) return
+
+        this.routeIndex++
+
+        if(this.routeIndex === ROUTE.length) this.routeIndex = null
+        else this.human.moveTo(ROUTE[this.routeIndex])
+    }
+
     update(){
+        this.updateRoute()
+        this.updateTrunkTouch()
         this.human.update(this.time.delta)
     }
 }
